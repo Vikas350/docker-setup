@@ -10,5 +10,7 @@ RUN npm install
 # copy required files
 COPY index.js index.js
 
+EXPOSE 8001
+
 # command to run the app
 CMD [ "npm", "start" ]
