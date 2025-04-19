@@ -1,21 +1,14 @@
-FROM ubuntu
-
-# Install curl
-RUN apt-get update
-RUN apt install -y curl
-
-# Install node js in ubuntu image
-RUN curl -sL https://deb.nodesource.com/setup_22.x -o /tmp/nodesource_setup.sh
-RUN bash /tmp/nodesource_setup.sh
-RUN apt install -y nodejs
-
-# copy required files
-COPY index.js /home/app/index.js
-COPY package.json /home/app/package.json
-COPY package-lock.json /home/app/package-lock.json
+FROM node:23.11-alpine3.21
 
 # set working directory
-WORKDIR /home/app
+WORKDIR /home/app/
 
+# npm install is only required when some packages are added or updated
+COPY package*.json .
 RUN npm install
 
+# copy required files
+COPY index.js index.js
+
+# command to run the app
+CMD [ "npm", "start" ]
