@@ -29,4 +29,14 @@ COPY --from=builder /home/build/package*.json .
 # --omit=dev ==> this will not install dev dependencies
 RUN npm install --omit=dev
 
+# we can create user and group
+# so that user does not have root privileges
+RUN addgroup --system --gid 1001 nodejs
+RUN addgroup --system --uid 1001 nodejs
+
+USER nodejs
+
+EXPOSE 8000
+ENV PORT=8000
+
 CMD [ "npm", "start" ]
