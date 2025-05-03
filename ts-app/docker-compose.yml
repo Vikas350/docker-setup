@@ -1,6 +1,14 @@
 name: e-commerce
 
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "8000:8000" #host:container
+
   db: 
     image: postgres:16
     container_name: postgres
@@ -8,16 +16,16 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
-    ports:
-      - "5431:5432" #host:container
+    # ports:
+    #   - "5431:5432" // now we can remove port mapping because- server access db/redis via docker network using container name
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   redis:
     image: redis:7-alpine
     container_name: redis
-    ports:
-      - "6379:6379" #host:container
+    # ports:
+    #   - "6379:6379" #host:container
     volumes:
       - redis_data:/data
 

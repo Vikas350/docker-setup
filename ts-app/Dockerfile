@@ -32,7 +32,7 @@ RUN npm install --omit=dev
 # we can create user and group
 # so that user does not have root privileges
 RUN addgroup --system --gid 1001 nodejs
-RUN addgroup --system --uid 1001 nodejs
+RUN adduser --system --uid 1001 nodejs
 
 USER nodejs
 
