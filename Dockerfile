@@ -10,7 +10,8 @@ RUN npm install
 # copy required files
 COPY index.js index.js
 
-EXPOSE 8001
+ENV PORT=8000
+EXPOSE 8000
 
 # command to run the app
 CMD [ "npm", "start" ]
